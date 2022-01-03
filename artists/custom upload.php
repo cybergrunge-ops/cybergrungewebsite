@@ -7,17 +7,24 @@ include "config2.php";
 // this just handles users uploads. i kinda need to cut this down a lot more and fix my sql database up
 ?>
 
-
 <html>
   
-<?php session_start(); //user panel bullshit
-	$MyUsername = "<a style='background-color:" . strip_tags($_SESSION["bgcolor"]) . ";color:" . strip_tags($_SESSION["textcolor"]) . "'><font size=2>&nbsp;" . strip_tags($_SESSION["username"]) . "&nbsp;</font> </a>";
-	if(isset($_SESSION['username'])){ echo '<style> @font-face {  font-family: alias; src: url("http://cybergrunge.net/alias.woff");} .aliasClass {  font-family: alias; color:#0f0; background-color:black;}</style><div style="z-index:99999999;position:fixed;left:5px;bottom:5px;background-color:#444;padding:7	px;border-radius:10%;border:5px inset;line-height:1.7"><font size=3><span  class="aliasClass" ">Logged in as: </span> '.$MyUsername.'<br> <a class="aliasClass" href="http://cybergrunge.net/login stuff/welcome.php">user tasks</a> - <a class="aliasClass" href="http://cybergrunge.net/login stuff/logout.php">log out<br></a> </span></span></font></div>';}
+<?php 
+    //user panel bullshit. bgcolor, textcolor are stored as varchar(3) so a # has to be added when using them
+    //i almost always use only 3 hex values for colors because noone actually needs more colors than that
+
+$MyUsername = "<a style='background-color:#" . strip_tags($_SESSION["bgcolor"]) . ";
+color:#" . strip_tags($_SESSION["textcolor"]) . "'><font size=2>
+&nbsp;" . strip_tags($_SESSION["username"]) . "&nbsp;</font> </a>";
+
+    // sorry for using inline styles, sue me.
+if(isset($_SESSION['username'])){ echo '
+<style> @font-face {  font-family: alias; src: url("http://cybergrunge.net/alias.woff");} .aliasClass {  font-family: alias; color:#0f0; background-color:black;}</style><div style="z-index:99999999;position:fixed;left:5px;bottom:5px;background-color:#444;padding:7px;border-radius:10%;border:5px inset;line-height:1.7">
+<font size=3><span class="aliasClass" ">Logged in as: </span> '.$MyUsername.'<br> <a class="aliasClass" href="../login stuff/welcome.php">user tasks</a> - 
+<a class="aliasClass" href="../login stuff/logout.php">log out<br></a> </span></span></font></div>';}
 ?>
-  
-  
-  
-<head><title>~Business Suite by Cybergrunge.net~</title>
+    
+<head><title>~Productivity Suite for Artists by cgru.net~</title>
 <link href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap" rel="stylesheet">
 <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -35,46 +42,37 @@ include "config2.php";
 	p1 {font-family: Alias, monospace;} 
 	input {border:2px black ridge;}
 </style>
-</head>
-<body style="background-color:#996; font-family:monospace;overflow:hidden;cursor:crosshair">
-
 <script> $(document).ready(function() { $(".divResize").draggable(); $(".resize").resizable();});
 function showr(){document.getElementById("rtfmtxt").style.visibility = "visible"}
 function hider(){document.getElementById("rtfmtxt").style.visibility = "hidden"}
 </script>
 
-<? if(!isset($_SESSION['username'])){ echo'<a href="https://cybergrunge.net/login%20stuff/login.php">
-<img  src="https://cybergrunge.net/icon2.png"></a> ';} ?>
+</head>
+<body style="background-color:#996; font-family:monospace;overflow:hidden;cursor:crosshair">
 
-	<a href="https://cybergrunge.net"><img src="https://cybergrunge.net/icon1.png"></a>
+<? 
+    if(!isset($_SESSION['username'])){ echo'<a href="../login%20stuff/login.php"><img  src="https://cybergrunge.net/icon2.png"></a> ';} 
+?>
 
-	<a onclick="showr()"><img src="https://cybergrunge.net/icon3.png" style="cursor:help"></a>
-
-
+    <a onclick="showr()"><img src="https://cybergrunge.net/icon3.png" style="cursor:help"></a>
 
 <div class="divResize"  id="rtfmtxt" style="position:absolute;left:550px;top:20px;height:350px;width:495px;visibility:hidden">
-<div class="windowname">README.html<div class="exit"><button class="close" onclick="hider()">X</button></div></div>
-	<div style="width:95%;height:85%;padding:10px;overflow-y:scroll;line-height:1;"></font></span></font></span>
-	<font size=4 style="background-color:yellow;"><b><u>NOTES:</font></b></u><br><font size=3></font></span>
-
+    <div class="windowname">README.html<div class="exit"><button class="close" onclick="hider()">X</button></div></div>
+<div style="width:95%;height:85%;padding:10px;overflow-y:scroll;line-height:1;"></font></span></font></span>
+    <font size=4 style="background-color:yellow;"><b><u>NOTES:</font></b></u><br><font size=3></font></span> 
 <br><br>
-if you do not upload art, art will be created for you by cybergrunge.net within a day or two. until the art is created the album it will not be listed. <br><br>
+Please ensure when uploading multiple tracks the album Name you are adding tracks to matches identically with existing album title (capitalization etc) Autocomplete usually will do this for you<br><br>
+your trakcs will be listed in alphabetical order to make set track list please name your files with "01", "02", "03" etc at the beginning for proper order. 
+this will be changed later so that you can title individual tracks and whatever. <br><br></font>
+</div></div>
 
-- Please ensure when uploading multiple tracks, the album Name you are adding tracks to matches identically with existing album title (capitalization etc) Autocomplete usually will do this for you<br><br> - your trakcs will be listed in alphabetical order to make set track list please name your files with "01", "02", "03" etc at the beginning for proper order.<br><br>
-- By uploading music you authorize CGRU.NET and affiliates to distribute and reproduce art/music in physical or digital form. Cybergrunge.net is creative commons 0.0 Public Domain and committed to Open Source & Public Domain.<br><br>
-- You may use aliases if you want, if you have an account your uploads will default artist name to your Username.<br><br>
-<br>As always, Donations are appreciated.</font><br><br>
-<font style="background-color:yellow;color:black;font-weight:bold;">UPDATES: JUNE 2021<br></font><br><br>
-YOUR URLS MAY HAVE CHANGED: First, convenient URL now to Link to your album are on the album page.<br><br>Album pages are now dynamically generated by a single PHP router, rather than a specific page for each album. This feature is to better assist users and webmaster in development.<br><br>some basic tasks for editing your album are now available by going to the URL of your album and adding "editalbum" to the end of the URL.
- for instance your URL is https://cyber.../foo/bar, you access editor by going to https://cyber.../foo/bar/editalbum. a more useful album editor is in the works. <br><br>
-</font></div></div>
-
-<div style="font-family: 'PT Mono', monospace;visibility:visible;position:absolute;left:30px;top:100;background-color:#aaa;padding:5px;border: 5px gray outset;width:350;z-index:55555;line-height:1"><form action="custom upload.php" method="post" enctype="multipart/form-data"><b>
-
-<?php  if(isset($_SESSION['username'])) {echo ""; } else{ echo '<span style="background-color:black;color:#00f;font-family: "PT Mono", monospace;"><font style="background-color:#0FF;color:black;"><font size=2><b>Not logged in. <a href="http://cybergrunge.net/login stuff/register">Register</a>For An Account if you want.</font></span></b>';} ?>
-
-
-<font size=2> <? if(isset($_SESSION['username'])){echo '<font style="color:black;background-color:#aaa">You are logged in as '.$MyUsername;}?>
+<div style="font-family: 'PT Mono', monospace;visibility:visible;position:absolute;left:30px;top:100;background-color:#aaa;padding:5px;border: 5px gray outset;width:350;z-index:55555;line-height:1">
+	
+	<form action="custom upload.php" method="post" enctype="multipart/form-data"><b>
+<?php  
+if(isset($_SESSION['username'])) {echo '<font style="color:black;background-color:#aaa">You are logged in as '.$MyUsername; } 
+else{ echo '<span style="background-color:black;color:#00f;font-family: "PT Mono", monospace;"><font style="background-color:#0FF;color:black;"><font size=2><b>Not logged in. <a href="../login stuff/register">Register</a>For An Account if you want.</font></span></b>';} 
+?>
 
 <br></font></font></font><font size=2><br>
 	<font style="color:black;">
@@ -90,29 +88,15 @@ YOUR URLS MAY HAVE CHANGED: First, convenient URL now to Link to your album are 
 <li>MP3's prefered. WAV's upload very slow.</li>
 <li>Re-enter album name for each track.</li>
 </font><br></i></u>
-
 <input type="submit" id="submit" value="Upload" name="submit" onclick="uploadfile(<? echo $_FILES['fileToUpload']['name']; ?>)" ><br></form>
-
-    <section class="progress-area"></section>
-    <section class="uploaded-area"></section>
-  <script src="script2.js"></script>
-
-
-
-
-
 </font> 
-
-
-
 </b><i><br></div></div></div></font></font></font></font>
 
 
+
 <div id="donate" style="position:absolute;cursor:move;z-index:1111;top:100px;left:1099px;width:150px;background-color:#0FF;line-height:1;border-radius:60%;border: double black 9px;padding:15px;">
-<font size=1><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_donations" /><input type="hidden" name="business" value="ellie@cybergrunge.net" />
-<input type="hidden" name="currency_code" value="USD" /><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /><br><center></i>
-Please consider donating to keep this website online and to help as we are in extreme poverty mentally ill trans commies.</i><br><b><i>Please help... <br>we are drowning....</i></b></center>
+insert crying about how poor i am here<br>
+insert nagging donate button here
 </div>
 </body>
 </html>
@@ -126,6 +110,8 @@ Please consider donating to keep this website online and to help as we are in ex
 
 	/*
 not sure why this is commented out tbh
+* oh. because it doesnt work. why doesnt it work.... hmmm.... i feel dizzy and nauseous...
+* sigh.
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if(isset($_SESSION["username"])){
@@ -135,7 +121,16 @@ $sql = "INSERT INTO `reywre` (`owner`, `page`) VALUES ('".$_SESSION["username"].
 	    	if(mysqli_stmt_execute($stmt)){}else{echo "Something went wrongwith the sql bullshit. Please try again later.";}
     	    mysqli_stmt_close($stmt);}
 			mysqli_close($link);
-	}}*/
+
+
+	}}
+	* 
+	* 
+	** i really want this to work because i want to create a SQL entry when album is created so people dont have to
+* manually create an SQL table entry by using createstyle.php....
+* oh well.
+* 
+* */
 
 $uploadOk = 1;
 $debugdiv = "<div style='position:fixed;background-color:red;top:0px;left:0px;color:black;'><font size=3>DEBUG INFO: ";
@@ -186,7 +181,7 @@ $artFileType = pathinfo($art_file,PATHINFO_EXTENSION);
 
 
 /*
-//crappy simple malicious php code detector that is not feasible for large files like wavs
+//crappy simple "malicious php" code detector that is not feasible for large files like wavs
 
 $filea = file_get_contents($_FILES["artToUpload"]["tmp_name"]);
 if (preg_match("php", $filea)){$uploadOk=0; echo "<div style='z-index:999;position:absolute;bottom:0px;background-color:#0F0;'><h2>potential malicious code was found in the file you uploaded. this may be in error, retry your upload in wav, ogg or mp3.</h2></div>";}
@@ -267,49 +262,18 @@ $art_file = str_replace(".cgi",".fuckyou", $art_file);
 	// create or append album page
 		
 		
-		
-	/* No longer in use as router.php handles generating album pages dynamically
-	
-	$tracklistsrc = 'track_list.php';
-	$newtracklist = $artistname . '/' . $albumname . '/track_list.php';
-	if (!copy($tracklistsrc, $newtracklist)) {echo "<font style='size:44px;color:white;'>CRITICAL ERROR: failed to create 
-	track_list.php contact webmaster</font>";}	
-	$t1racklistsrc = 'donotopen/editalbum.php';
-	$n1ewtracklist = $artistname . '/' . $albumname . '/editalbum.php';
-	if (!copy($t1racklistsrc, $n1ewtracklist)) {echo "<font style='size:44px;color:white;'>CRITICAL ERROR: failed to create 
-	editalbum.php contact webmaster</font>";}
-  */
-		
-
-
-//this just copies the artist.php code to generate a list of albums by an artist
-//eventually i will replace this with a nifty function in the router (maybe i already have i cant rememnber)
-    
-	$artistsrc = 'artist.php';
-	$newartist = $artistname . '/artist.php';
-		
-	if (!copy($artistsrc, $newartist)) {echo  $debugdiv . "<font style='size:44px;color:white;'>CRITICAL ERROR: failed to create artist.php contact webmaster</font></font>";}	
 	//append index of albums
 	//check and update index status
     echo $debugdiv . "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</font>";}
 
 
 
-
-
-
-
 //userdata.txt contains info about the person that uploaded (if they are logged in)
 //was a crappy makeshift way to store data before i knew how to do SQL, and still implemented because i still dont really know how to do SQL
-
 else {echo $debugdiv . "". $pathname ." ". $target_file." failed.</div>";}
 $datapath = $artistname . '/' . $albumname . '/userdata.txt'; 
 $datatxt = fopen($datapath, 'w');
-fwrite($datatxt,   "<font style='background-color:".$_SESSION["bgcolor"].";color:".$_SESSION["textcolor"].";' size=2>".$_SESSION["username"]."</font>"); fclose($fp);
-
-
-
-
+fwrite($datatxt,   "<font style='background-color:#".$_SESSION["bgcolor"].";color:#".$_SESSION["textcolor"].";' size=2>".$_SESSION["username"]."</font>"); fclose($fp);
 
 
 //ope. looks like i was using htmlspecialchars instead of urlencode i guess im a dumbass.
@@ -317,8 +281,7 @@ fwrite($datatxt,   "<font style='background-color:".$_SESSION["bgcolor"].";color
 
 
 if(isset($_POST["artistname"])){
-echo "<div style='position:absolute;left:420;top:20;'>your album will appear here after uploading a track.<br>
-from there u can edit style, delete/upload tracks etc.<br><iframe style='width:700;height:550;' src='https://cybergrunge.net/Artists/" . htmlspecialchars($_POST["artistname"]) . "/" . htmlspecialchars($_POST["albumname"]) . "/editalbum'></iframe></div>";
+echo "<div style='position:absolute;left:420;top:20;'>Here is your album so far. You can edit it convniently from here or continue uploading more tracks.<br><iframe style='width:700;height:550;' src='" . htmlspecialchars($_POST["artistname"]) . "/" . htmlspecialchars($_POST["albumname"]) . "/editalbum'></iframe></div>";
 }
 
 else{
@@ -331,3 +294,39 @@ echo $uploadOk;
 
 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
